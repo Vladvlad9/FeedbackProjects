@@ -53,3 +53,16 @@ async def say_hello(name: str):
     await bot.send_message(chat_id=381252111, text=f'{name}')
     return {"message": f"Hello {name}"}
 
+origins = [
+    "https://vladvlad9.github.io/pageTest.io/"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=['GET', 'POST', 'OPTIONS', 'DELETE', 'PATCH', 'PUT'],
+    allow_headers=['Content-Type',
+                   'Access-Control-Allow-Headers', 'Set-Cookie', 'Authorization', 'Access-Control-Allow-Origin']
+
+)
