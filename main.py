@@ -4,8 +4,8 @@ from starlette.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from bot import dp, bot
 from config import CONFIG
-from routers.chat import router as router_chat
-from routers.pages import router as router_pages
+from routers.chat.chat_router import router as chat_routers
+from routers.pages.pages_rout import router as pages_routers
 
 WEBHOOK_PATH = f"/bot/{CONFIG.BOT.TOKEN}"
 WEBHOOK_URL = f"{CONFIG.BOT.NGROK_TUNEL_URL}{WEBHOOK_PATH}"
@@ -14,8 +14,8 @@ app = FastAPI()
 
 # app.mount("/static", StaticFiles(directory="/opt/git/FeedbackProjects/static"), "static")
 
-app.include_router(router_chat)
-app.include_router(router_pages)
+app.include_router(pages_routers)
+app.include_router(chat_routers)
 
 
 app.add_middleware(
@@ -27,12 +27,12 @@ app.add_middleware(
 )
 
 
-@app.post(WEBHOOK_PATH)
-async def bot_webhook(update: dict):
-    telegram_update = types.Update(**update)
-    Dispatcher.set_current(dp)
-    Bot.set_current(bot)
-    await dp.process_update(telegram_update)
+# @app.post(WEBHOOK_PATH)
+# async def bot_webhook(update: dict):
+#     telegram_update = types.Update(**update)
+#     Dispatcher.set_current(dp)
+#     Bot.set_current(bot)
+#     await dp.process_update(telegram_update)
 
 
 @app.on_event("startup")
