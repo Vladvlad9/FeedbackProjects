@@ -12,7 +12,7 @@ WEBHOOK_URL = f"{CONFIG.BOT.NGROK_TUNEL_URL}{WEBHOOK_PATH}"
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="./static"), "static")
+app.mount("/static", StaticFiles(directory="/opt/git/FeedbackProjects/static"), "static")
 
 app.include_router(router_chat)
 app.include_router(router_pages)
