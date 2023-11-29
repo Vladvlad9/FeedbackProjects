@@ -2,12 +2,14 @@ from datetime import datetime
 from typing import Annotated
 
 from sqlalchemy import Boolean, BigInteger, String, DateTime, Integer, Column
-from sqlalchemy.orm import declarative_base, mapped_column, Mapped
+from sqlalchemy.orm import declarative_base
+
+# from sqlalchemy.orm import declarative_base, mapped_column, Mapped
 
 
 Base = declarative_base()
-
-intPK = Annotated[int, mapped_column(primary_key=True)]
+#
+# intPK = Annotated[int, mapped_column(primary_key=True)]
 
 
 # class User(Base):
