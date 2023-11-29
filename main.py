@@ -1,14 +1,22 @@
 from aiogram import Bot, Dispatcher, types
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
-
+from fastapi.staticfiles import StaticFiles
 from bot import dp, bot
 from config import CONFIG
+from routers.chat import router as router_chat
+from routers.pages import router as router_pages
 
 WEBHOOK_PATH = f"/bot/{CONFIG.BOT.TOKEN}"
 WEBHOOK_URL = f"{CONFIG.BOT.NGROK_TUNEL_URL}{WEBHOOK_PATH}"
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="./static"), "static")
+
+app.include_router(router_chat)
+app.include_router(router_pages)
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -29,9 +37,10 @@ async def bot_webhook(update: dict):
 
 @app.on_event("startup")
 async def on_startup():
-    webhook_info = await bot.get_webhook_info()
-    if webhook_info.url != WEBHOOK_URL:
-        await bot.set_webhook(url=WEBHOOK_URL)
+    # webhook_info = await bot.get_webhook_info()
+    # if webhook_info.url != WEBHOOK_URL:
+    #     await bot.set_webhook(url=WEBHOOK_URL)
+    pass
 
 
 @app.get("/")
