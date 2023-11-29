@@ -11,12 +11,12 @@ class UserSchema(BaseModel):
     created_at: datetime = Field(default=datetime.utcnow)
     updated_at: datetime = Field(default=datetime.utcnow)
 
-    @classmethod
-    @field_validator('phone')
-    def check_phone(cls, v):
-        if not re.match("^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$", v):
-            raise ValueError('Неверный формат российского телефонного номера')
-        return v
+    # @classmethod
+    # @field_validator('phone')
+    # def check_phone(cls, v):
+    #     if not re.match("^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$", v):
+    #         raise ValueError('Неверный формат российского телефонного номера')
+    #     return v
 
 
 class UserInDBSchema(UserSchema):
