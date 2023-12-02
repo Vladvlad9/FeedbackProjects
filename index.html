@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Бронирование</title>
+</head>
+<body>
+    asdda
+    <div>
+        {% for hotel in hotels %}
+            <div>
+                <img src="{{ url_for('static', path='images/' + hotel['image_id']|string + '.webp') }}">
+                <h1>{{ hotel['name'] }}</h1>
+                <h4>{{ hotel['location'] }}</h4>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
