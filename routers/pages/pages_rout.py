@@ -12,7 +12,7 @@ templates = Jinja2Templates(directory='./templates')
 
 @router.get('/chat')
 def get_chat(request: Request):
-    return templates.TemplateResponse(name='chat.html',
+    return templates.TemplateResponse(name='test.html',
                                       context={
                                           "request": request
                                       })

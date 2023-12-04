@@ -2,21 +2,32 @@ from aiogram import Bot, Dispatcher, types
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+
+from admin.views import UserAdmin, AdminAdmin, TelegramMessageAdmin, DialogAdmin
 from bot import dp, bot
 from config import CONFIG
+from models.engine import ASYNC_ENGINE
 from routers.chat.chat_router import router as chat_routers
 from routers.pages.pages_rout import router as pages_routers
+from sqladmin import Admin
 
 WEBHOOK_PATH = f"/bot/{CONFIG.BOT.TOKEN}"
 WEBHOOK_URL = f"{CONFIG.BOT.NGROK_TUNEL_URL}{WEBHOOK_PATH}"
+
 
 app = FastAPI()
 
 # app.mount("/static", StaticFiles(directory="/opt/git/FeedbackProjects/static"), "static")
 
+admin = Admin(app, ASYNC_ENGINE)
+
 app.include_router(pages_routers)
 app.include_router(chat_routers)
 
+admin.add_view(UserAdmin)
+admin.add_view(AdminAdmin)
+admin.add_view(DialogAdmin)
+admin.add_view(TelegramMessageAdmin)
 
 app.add_middleware(
     CORSMiddleware,

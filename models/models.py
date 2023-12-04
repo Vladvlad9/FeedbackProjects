@@ -28,20 +28,34 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(BigInteger, nullable=False, unique=True, index=True, comment="User ID")
-    phone = Column(String, nullable=False, unique=True, index=True, comment="User ID")
+    phone = Column(String, nullable=False, comment="User ID")
+    is_active = Column(Boolean, default=True, nullable=False, comment="Is the user active?")
 
-    # phone: Mapped[str] = mapped_column(nullable=False, unique=True, index=True, comment="Phone number")
-    # is_active: Mapped[bool] = mapped_column(default=True, comment="Is the user active?")
-    # created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow, comment="Creation timestamp")
-    # updated_at: Mapped[datetime] = mapped_column(default=datetime.utcnow, onupdate=datetime.utcnow,
-    #                                              comment="Last update timestamp")
+    created_at = Column(DateTime, default=datetime.now, comment="Creation timestamp")
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now, comment="Last update timestamp")
 
 
-class Message(Base):
-    __tablename__ = 'messages'
+class Admin(Base):
+    __tablename__: str = "admins"
 
     id = Column(Integer, primary_key=True)
-    message = Column(String)
+    admin_id = Column(BigInteger, nullable=False, unique=True, index=True)
 
-    def as_dict(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+class Dialogue(Base):
+    __tablename__: str = "dialogs"
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(BigInteger, index=True)
+    admin_id = Column(BigInteger, index=True)
+    is_active = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow, comment="Creation timestamp")
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow,
+                        comment="Last update timestamp")
+    who_closed = Column(String, default="None")
+
+
+class TelegramMessage(Base):
+    __tablename__ = 'telegram_message'
+
+    id = Column(Integer, primary_key=True)
