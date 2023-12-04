@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import insert
 
-from models import Message
+# from models import Message
 from models.engine import ASYNC_ENGINE
 
 router = APIRouter(
@@ -45,13 +45,13 @@ manager = ConnectionManager()
 
 
 @router.websocket("/ws/{client_id}")
-async def websocket_endpoint(websocket: WebSocket, client_id: int):
+async def websocket_endpoint(websocket: WebSocket, client_id: int | str):
     await manager.connect(websocket)
     try:
         while True:
             data = await websocket.receive_text()
             # await manager.send_personal_message(f"You wrote: {data}", websocket)
-            await manager.broadcast(f"Client #{client_id} says: {data}", add_to_base=True)
+            await manager.broadcast(f"Пользователь #{client_id}: {data}", add_to_base=True)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
-        await manager.broadcast(f"Client #{client_id} left the chat", add_to_base=False)
+        await manager.broadcast(f"Пользователь #{client_id} покинул чат", add_to_base=False)
