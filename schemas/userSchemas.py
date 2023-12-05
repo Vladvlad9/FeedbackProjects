@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 class UserSchema(BaseModel):
     user_id: int = Field(ge=1)
     phone: str = Field(...)
-    is_active: bool = Field(default=True)
+    is_block: bool = Field(default=True)
     created_at: datetime = Field(default=datetime.utcnow)
     updated_at: datetime = Field(default=datetime.utcnow)
 

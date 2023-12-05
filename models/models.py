@@ -29,7 +29,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(BigInteger, nullable=False, unique=True, index=True, comment="User ID")
     phone = Column(String, nullable=False, comment="User ID")
-    is_active = Column(Boolean, default=True, nullable=False, comment="Is the user active?")
+    is_block = Column(Boolean, default=True, nullable=False, comment="Is the user active?")
 
     created_at = Column(DateTime, default=datetime.now, comment="Creation timestamp")
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now, comment="Last update timestamp")
@@ -53,6 +53,7 @@ class Dialogue(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow,
                         comment="Last update timestamp")
     who_closed = Column(String, default="None")
+    grade = Column(Integer)
 
 
 class TelegramMessage(Base):
