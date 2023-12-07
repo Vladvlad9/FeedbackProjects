@@ -21,10 +21,10 @@ class UserAdmin(ModelView, model=User):
 
     can_export = False
     can_view_details = True
-    list_template = "list.html"
-    details_template = "details.html"
-    edit_template = "edit.html"
-    create_template = "create.html"
+    # list_template = "list.html"
+    # details_template = "details.html"
+    # edit_template = "edit.html"
+    # create_template = "create.html"
     # column_details_list = [User.id, User.user_id, User.phone]
 
 
@@ -34,10 +34,10 @@ class AdminAdmin(ModelView, model=Admin):
     name = "Администратора"
     name_plural = "Администраторы"
 
-    list_template = "list.html"
-    details_template = "details.html"
-    edit_template = "edit.html"
-    create_template = "create.html"
+    # list_template = "list.html"
+    # details_template = "details.html"
+    # edit_template = "edit.html"
+    # create_template = "create.html"
 
     column_labels = {
         Admin.id: "id",
@@ -50,10 +50,10 @@ class DialogAdmin(ModelView, model=Dialogue):
 
     name = "Диалог"
 
-    list_template = "list.html"
-    details_template = "details.html"
-    edit_template = "edit.html"
-    create_template = "create.html"
+    # list_template = "list.html"
+    # details_template = "details.html"
+    # edit_template = "edit.html"
+    # create_template = "create.html"
 
     column_labels = {
         Dialogue.id: "id",
