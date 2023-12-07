@@ -5,7 +5,7 @@ from starlette.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from admin.views import UserAdmin, AdminAdmin, TelegramMessageAdmin, DialogAdmin
-from bot import dp, bot
+# from bot import dp, bot
 from config import CONFIG
 from models.engine import ASYNC_ENGINE
 from routers.chat.chat_router import router as chat_routers
