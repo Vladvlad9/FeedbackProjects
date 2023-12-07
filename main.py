@@ -1,14 +1,15 @@
 import uvicorn
 from aiogram import Bot, Dispatcher, types
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from starlette.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-
+from fastapi.responses import FileResponse
 from admin.views import UserAdmin, AdminAdmin, TelegramMessageAdmin, DialogAdmin
 from bot import dp, bot
 from config import CONFIG
 from models.engine import ASYNC_ENGINE
 from routers.chat.chat_router import router as chat_routers
+from fastapi.templating import Jinja2Templates
 from routers.pages.pages_rout import router as pages_routers
 from sqladmin import Admin
 
@@ -17,8 +18,8 @@ WEBHOOK_URL = f"{CONFIG.BOT.NGROK_TUNEL_URL}{WEBHOOK_PATH}"
 
 
 app = FastAPI()
-
-# app.mount("/static", StaticFiles(directory="/opt/git/FeedbackProjects/static"), "static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="./templates")
 
 admin = Admin(app, ASYNC_ENGINE)
 
@@ -39,25 +40,14 @@ app.add_middleware(
 )
 
 
-# @app.post(WEBHOOK_PATH)
-# async def bot_webhook(update: dict):
-#     telegram_update = types.Update(**update)
-#     Dispatcher.set_current(dp)
-#     Bot.set_current(bot)
-#     await dp.process_update(telegram_update)
-
-
 @app.on_event("startup")
 async def on_startup():
-    # webhook_info = await bot.get_webhook_info()
-    # if webhook_info.url != WEBHOOK_URL:
-    #     await bot.set_webhook(url=WEBHOOK_URL)
     pass
 
 
 @app.get("/")
-async def root():
-    return {"message": "Hello World"}
+async def root(request: Request):
+    return templates.TemplateResponse("main.html", {"request": request})
 
 
 @app.get("/hello/{name}")

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body { margin: 0; font-family: Arial, sans-serif; }
+  .chart-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+            padding: 20px;
+        }
+
+        .stats-container {
+            text-align: center;
+        }
+        .chart {
+            width: 250px; /* Уменьшено с 500px */
+            height: 150px; /* Уменьшено с 300px */
+            margin: auto;
+        }
+  .header { display: flex; justify-content: space-between; background-color: #333; padding: 10px; }
+  .header .logo { color: white; }
+  .header nav { display: flex; }
+  .header nav a { color: white; text-decoration: none; padding: 10px; }
+  .header nav a:hover { background-color: #555; }
+  .header .login { color: white; text-decoration: none; padding: 10px; background-color: #0f62fe; border: none; cursor: pointer; }
+  .header .login:hover { background-color: #0353e9; }
+
+  @media (max-width: 600px) {
+    .header nav { display: none; }
+    .header .menu { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+        <div class="logo">Логотип</div>
+        <nav>
+            <a href="{{ request.url_for('stats') }}">Домой</a>
+        </nav>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

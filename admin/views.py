@@ -16,7 +16,7 @@ class UserAdmin(ModelView, model=User):
         User.phone: "№ телефона",
         User.created_at: "Зарегистрировался в боте",
         User.updated_at: "Был в боте",
-        User.is_active: "Заблокирован",
+        User.is_block: "Заблокирован",
     }
 
     can_export = False
