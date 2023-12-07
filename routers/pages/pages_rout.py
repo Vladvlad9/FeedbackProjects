@@ -27,7 +27,6 @@ async def get_form(request: Request):
 
 @router.post("/send_message/")
 async def send_message(message: str = Form(...)):
-    # await bot.send_message(chat_id=381252111, text=f'{message}')
     pass
     telegram_bot_token = CONFIG.BOT.TOKEN
     chat_id = CONFIG.BOT.ADMINS[0]
