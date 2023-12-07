@@ -3,7 +3,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 import httpx
 
-from bot import bot
+# from bot import bot
 from config import CONFIG
 
 router = APIRouter(
