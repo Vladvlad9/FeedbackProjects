@@ -8,14 +8,13 @@ from admin.views import UserAdmin, AdminAdmin, TelegramMessageAdmin, DialogAdmin
 # from bot import dp, bot
 from config import CONFIG
 from models.engine import ASYNC_ENGINE
-from routers.chat.chat_router import router as chat_routers
+# from routers.chat.chat_router import router as chat_routers
 from fastapi.templating import Jinja2Templates
 from routers.pages.pages_rout import router as pages_routers
 from sqladmin import Admin
 
 WEBHOOK_PATH = f"/bot/{CONFIG.BOT.TOKEN}"
 WEBHOOK_URL = f"{CONFIG.BOT.NGROK_TUNEL_URL}{WEBHOOK_PATH}"
-
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -24,7 +23,7 @@ templates = Jinja2Templates(directory="./templates")
 admin = Admin(app, ASYNC_ENGINE)
 
 app.include_router(pages_routers)
-app.include_router(chat_routers)
+# app.include_router(chat_routers)
 
 admin.add_view(UserAdmin)
 admin.add_view(AdminAdmin)
@@ -52,8 +51,9 @@ async def root(request: Request):
 
 @app.get("/hello/{name}")
 async def say_hello(name: str):
-    await bot.send_message(chat_id=381252111, text=f'{name}')
+    # await bot.send_message(chat_id=381252111, text=f'{name}')
     return {"message": f"Hello {name}"}
+
 
 origins = [
     "https://vladvlad9.github.io/pageTest.io/"
